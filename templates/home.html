@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2e3b4e;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        input[type="file"],
+        select,
+        input[type="submit"] {
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input[type="submit"] {
+            background-color: #2e3b4e;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #1f2a36;
+        }
+        .playlist-info {
+            background-color: #e3f7e5;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            margin-top: 30px;
+        }
+        .playlist-info a {
+            color: #2e3b4e;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .playlist-info a:hover {
+            text-decoration: underline;
+        }
+        .image-preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        footer {
+            background-color: #2e3b4e;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Playlist Generator</h1>
+    </header>
+
+    <div class="container">
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label for="file">Choose an image:</label>
+            <input type="file" name="file" id="file" accept="image/*" required>
+
+            <label for="genre">Choose a genre:</label>
+            <select name="genre" id="genre">
+                <option value="pop">Pop</option>
+                <option value="rock">Rock</option>
+                <option value="hip-hop">Hip-Hop</option>
+                <option value="classical">Classical</option>
+                <option value="jazz">Jazz</option>
+                <option value="electronic">Electronic</option>
+                <option value="blues">Blues</option>
+            </select>
+
+            <label for="num_songs">Number of songs:</label>
+            <select name="num_songs" id="num_songs">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+            </select>
+
+            <input type="submit" value="Generate Playlist">
+        </form>
+
+        {% if playlist_url %}
+        <div class="playlist-info">
+            <h2>Playlist Created!</h2>
+            <p>Here is your playlist based on the mood: <strong>{{ mood }}</strong> and genre: <strong>{{ genre }}</strong> with <strong>{{ num_songs }}</strong> songs:</p>
+            <a href="{{ playlist_url }}" target="_blank">Listen to your playlist</a>
+        </div>
+
+        <div class="image-preview">
+            <h3>Uploaded Image:</h3>
+            <img src="{{ image_url }}" alt="Uploaded Image">
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Playlist Generator. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
